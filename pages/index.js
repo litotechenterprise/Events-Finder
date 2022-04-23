@@ -1,8 +1,11 @@
+import { getAllEvents } from "../Dummy-Data"
+import EventsList from "../components/events/event-list"
+
 
 export default function Home() {
   return (
     <div>
-      <h1>What is up papi</h1>
+      <EventsList events={getAllEvents()}/>
     </div>
   )
 }

@@ -4,8 +4,8 @@ import EventsList from "../../components/events/event-list";
 export default function Events () {
     return (
         <div>
-            <h1>Events</h1>
-            <EventsList events={getAllEvents()}/>
+            <h1>All Events</h1>
+           
         </div>
     )
 }
