@@ -4,7 +4,8 @@ import {getEventById} from '../../Dummy-Data';
 import EventSummary from "../../components/event-detail/event-summary"
 import EventContent from "../../components/event-detail/event-content"
 import EventLogistics from "../../components/event-detail/event-logistics"
-
+import ErrorAlert from "../../components/ui/error-alert"
+import Button from "../../components/ui/button";
 export default function EventId () {
 
     const { query } = useRouter()
@@ -12,7 +13,16 @@ export default function EventId () {
     const event = getEventById(eventId);
 
     if (!event) {
-        return <p>No Event Found</p>
+        return (
+            <Fragment>
+                <ErrorAlert>
+                    <p>Event not found</p>
+                </ErrorAlert>
+                <div className="center">
+                    <Button link={"/events"}>Show All Events</Button>
+                </div>
+            </Fragment>
+        )
     }
     
     return (
