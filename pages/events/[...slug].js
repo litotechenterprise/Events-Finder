@@ -6,6 +6,7 @@ import ResultsTitle from "../../components/events/results-title";
 import { Fragment,  useEffect, useState } from "react";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert"
+import Head from "next/head"
 
 const EventSlugs = (props) => {
     const [loadedEvents, setLoadedEvents] = useState();
@@ -13,6 +14,7 @@ const EventSlugs = (props) => {
     const filterData = router.query.slug;
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const {data, error } = useSWR("https://laws-de-pr.firebaseio.com/events.json", fetcher);
+
     useEffect(() => {
         if (data) {
             const events = [];
@@ -28,15 +30,32 @@ const EventSlugs = (props) => {
         }
     }, [data])
 
-    if (!loadedEvents) {
-        return <p className="center">Loading...</p>
-    }
     const filterYear = +filterData[0];
     const filterMonth = +filterData[1];
+
+    let pageHeadData = (
+        <Head>
+            <title>Filtered Events</title>
+            <meta 
+                name="description" 
+                content={`A list of filtered events`}
+            />
+        </Head>
+    )
+
+    if (!loadedEvents) {
+        return (
+            <Fragment>
+                {pageHeadData}
+                <p className="center">Loading...</p>
+            </Fragment>
+        )
+    }
 
     if (isNaN(filterYear) || isNaN(filterMonth) || filterYear > 2030 || filterYear < 2021 || filterMonth < 1 || filterMonth > 13 || error) {
         return (
             <Fragment>
+                 {pageHeadData}
                 <ErrorAlert>
                     <p>Invaild Filter. Please adjust your values</p>
                 </ErrorAlert>
@@ -53,9 +72,22 @@ const EventSlugs = (props) => {
       });
 
 
+    pageHeadData = (
+        <Head>
+            <title>Filtered Events</title>
+            <meta 
+                name="description" 
+                content={`All events for ${filterMonth}/${filterYear}`}
+            />
+        </Head>
+    )
+
+
+
     if (!filteredEvents || filteredEvents.length === 0) {
         return (
             <Fragment>
+                {pageHeadData}
                 <ErrorAlert>
                     <p>No Events Found</p>
                 </ErrorAlert>
@@ -70,6 +102,7 @@ const EventSlugs = (props) => {
 
     return (
         <Fragment>
+             {pageHeadData}
             <ResultsTitle date={date}/>
             <EventsList events={filteredEvents}/>
         </Fragment>
