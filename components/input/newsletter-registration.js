@@ -1,8 +1,18 @@
+import { useRef } from "react"
 import classes from "./newsletter-registration.module.css"
 
 const NewsLetterRegistration = (props) => {
-    const registrationHandler = (event) => {
-        event.preventDefault()
+    const email = useRef()
+    const registrationHandler = async (event) => {
+        event.preventDefault();
+        const emailInput = email.current.value;
+        await fetch('/api/newsletter', {
+            method:"POST",
+            body:JSON.stringify({email:emailInput}),
+            headers: {
+                'Content-Type':"application/json"
+            }
+        }).then((response) => response.json()).then((data) => console.log(data))
     }
 
     return (
@@ -15,6 +25,7 @@ const NewsLetterRegistration = (props) => {
                         id='email'
                         placeholder="Your email"
                         aria-label='Your email'
+                        ref={email}
                     />
                     <button>registration</button>
                 </div>

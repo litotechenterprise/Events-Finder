@@ -4,11 +4,14 @@ export default function handler(req, res) {
   if (req.method === "POST") {
       const Email = req.body.email;
 
-      if (!userEmail || !userEmail.includes("@")) {
+      if (!Email || !Email.includes("@")) {
         res.status(422).json({message: "Invalid email address"})
         return;
       } 
 
+
+   
       console.log(Email)
+      res.status(201).json({message:"Signed Up"})
   }
 }

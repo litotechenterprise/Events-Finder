@@ -13,8 +13,14 @@ function Comments(props){
         setShowComments(prev => !prev)
     }
 
-    const addCommentHandler = () => {
-
+    const addCommentHandler =  (commentData) => {
+         fetch(`/api/comments/${eventId}`, {
+            method:"POST",
+            body:JSON.stringify(commentData),
+            headers:{
+                'Content-Type':"application/json"
+            }
+        }).then((res) => res.json()).then((data) => console.log(data))
     }
 
     return (
