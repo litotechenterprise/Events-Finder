@@ -41,7 +41,7 @@ const NewComment = (props) => {
                     <input type={'email'} id='email'ref={emailInputRef}/>
                 </div>
                 <div className={classes.control}>
-                    <label ></label>
+                    <label htmlFor='name'>Your name</label>
                     <input type={'text'} id='name' ref={nameInputRef}/>
                 </div>
             </div>

@@ -18,7 +18,7 @@ function Comments(props){
     }
 
     return (
-        <section>
+        <section className={classes.comments}>
             <button onClick={toggleComments}>
                 {showComments ? 'Hide' : "Show" } Comments
             </button>

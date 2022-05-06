@@ -6,7 +6,7 @@ const NewsLetterRegistration = (props) => {
     }
 
     return (
-        <section>
+        <section className={classes.newsletter}>
             <h2>Sign up to stay updated!</h2>
             <form onSubmit={registrationHandler}>
                 <div className={classes.control}>

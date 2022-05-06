@@ -33,7 +33,7 @@ const EventId = (props) => {
             <EventContent >
                 <p>{event.description}</p>
             </EventContent>
-            <Comments  eventId={event.id} />
+            <Comments eventId={event.id} />
         </Fragment>
     )
 }
